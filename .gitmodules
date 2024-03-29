@@ -1,0 +1,6 @@
+[submodule "insecure-chat-client"]
+	path = insecure-chat-client
+	url = git@github.com:thebaconfate/Security-in-computing--insecure-chat-client.git
+[submodule "insecure-chat-server"]
+	path = insecure-chat-server
+	url = git@github.com:thebaconfate/Security-in-computing--insecure-chat-server.git
