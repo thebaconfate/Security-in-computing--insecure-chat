@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 %\documentclass{report} % Can be article, report, book, anything you want!
 
 \usepackage{vub} % this will automatically set to A4 paper. We're not in the US.
@@ -9,22 +9,34 @@
 
 % Feel free to mix and match with other packages.
 
-\title{A small report about the project.}
+\title{A small report about the project}
 \subtitle{Security in Computing}
 \faculty{Sciences and Bio-Engineering Sciences} % Note: without the word "Faculty"!
 \author{Gérard Lichtert}
+\date{\today}
 
 \begin{document}
 \maketitle
+\tableofcontents%
+\newpage
+\section{Overview \& Implementation of requirements}
+ededed
+\newpage
+\section{Security goals and attacker models}
 
-Your text goes here.
+\newpage
+\section{Description of important cases and design choices}
 
+\newpage
+\section{Description of evaluation scenarios \& behavior}
 
-\tableofcontents
+\newpage
+\section{Manual on how to run and test the application}
 
-\section*{Added dependencies}
-\subsection*{Client}
-\subsection*{Server}
+\newpage
+\section{Added dependencies}
+%\subsection{Client}
+%\subsection{Server}
 I added the following dependencies to the server:
 \begin{itemize}
     \item sqlite3
