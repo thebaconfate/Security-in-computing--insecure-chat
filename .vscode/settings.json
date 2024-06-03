@@ -1,0 +1,10 @@
+{
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"driver": "SQLite",
+			"name": "insecure-chat",
+			"database": "C:\\Users\\gerar\\Documents\\VUB\\Mastervakken\\Security-in-computing\\projects\\insecure-chat\\insecure-chat-server\\database.db"
+		}
+	]
+}
