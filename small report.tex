@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 %\documentclass{report} % Can be article, report, book, anything you want!
 \usepackage{csquotes}
+\usepackage{float}
 \usepackage{vub} % this will automatically set to A4 paper. We're not in the US.
 % if, for some obscure reason, you need another format, please file an issue (see further).
 
@@ -40,7 +41,11 @@ For the login of users, the server fetches the user credentials from the databas
 \subsection{Persistence}
 In the skeleton application all of the details regarding, messages, information about rooms or even users were all stored in-memory. Now it is stored in a sqlite3 database, which is a file-based database. While not ideal for production, it is a good alternative for a school project as it maintains the aspects of a relational database without the need for a hosting service of the database. Ideally I would choose something like a MySQL or PostgreSQL database for a production environment. Note that the database is not supplied when first downloading the application, but when the server is started for the first time, the database will be created, if it does not already exist. To prevent SQL injection, the interactions with the database all use prepared statements.
 The database structure is as follows:
-% TODO: insert database structure here
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{database.png}
+    \caption{The database structure}
+\end{figure}
 We have a table denoting the users, in which their username, hashed password and public keys are stored and an ID is generated.
 
 We have a table denoting the rooms, in which the room name, the room description and wether the room is private or direct is stored as well as a room ID is generated.
