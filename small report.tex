@@ -36,7 +36,7 @@ However, now a user also has to register themselves prior to being able to login
 \subsection{Login / Authentication}
 For the registration of users, the client sends a request to the server to register a user. The password is hashed using bcrypt as the hashing library which also uses salt to hash the password, before being stored in the database. Note that the user is only registered if the user does not already exist. Otherwise a pop up will notify the user already exists.
 
-For the login of users, the server fetches the user credentials from the database. Then the server compares the plaintext password against the hashed password using bcrypt. If the password is correct, the server will generate a JSON Web Token (JWT) using the HS512 algorithm and signing it with the private key of the server. The JWT will be sent back to the client, which will be stored in a variable on the client. The JWT will be used to authenticate the user for the rest of the session, as the rest of the interactions with the server require a valid JWT. Interactions with the server done without the JWT or with invalid JWT will be rejected by the server.
+For the login of users, the server fetches the user credentials from the database. Then the server compares the plaintext password against the hashed password using bcrypt. If the password is correct, the server will generate a JSON Web Token (JWT) using the HS512 algorithm and signing it with the private key of the server, which you'll have to generate and store to a .env file (more below). The JWT will be sent back to the client, which will be stored in a variable on the client. The JWT will be used to authenticate the user for the rest of the session, as the rest of the interactions with the server require a valid JWT. Interactions with the server done without the JWT or with invalid JWT will be rejected by the server.
 
 \subsection{Persistence}
 In the skeleton application all of the details regarding, messages, information about rooms or even users were all stored in-memory. Now it is stored in a sqlite3 database, which is a file-based database. While not ideal for production, it is a good alternative for a school project as it maintains the aspects of a relational database without the need for a hosting service of the database. Ideally I would choose something like a MySQL or PostgreSQL database for a production environment. Note that the database is not supplied when first downloading the application, but when the server is started for the first time, the database will be created, if it does not already exist. To prevent SQL injection, the interactions with the database all use prepared statements.
@@ -93,7 +93,7 @@ When data is sent to the server, it is currently assumed to be sanitized and val
 
 Another design choice, which was mentioned earlier, is the way that messages are returned from the database. The database will only return messages for which the user has a decryption key. This is to prevent users who are not in the room from being able to read the messages that were sent while the user was not in the room.
 
-For the encryption of e2e encryption, the sender of the message generates a symmetric AES key and IV. Encrypts the message with the symmetric key and the symmetric key with the recipients public key.
+For the encryption of e2e encryption, the sender of the message generates a symmetric AES key and IV. Encrypts the message with the symmetric key and the symmetric key with the recipients public key. To protect public messages they are encrypted with the servers' public key. The server decrypts it with its private key to store it in the database. When a user fetches the public messages, the server encrypts the messages with a symmetric AES key, which is encrypted by the users' public key. This way only the user can decrypt the messages.
 
 The passwords are hashed with bcrypt, which users salt to hash the password. This way the passwords are illegible to anyone who has access to the database.
 \section{Manual on how to run and test the application}
@@ -103,7 +103,7 @@ To run the server, you require node.js of version 20.11.1 or higher. First it is
     \centering
     \includegraphics[width=0.6\textwidth]{openssl.png}
 \end{figure}
-After creating the .env file and storing a secret key in the file, it should be sufficient to run \enquote{npm install} to install the dependencies and \enquote{npm start} to initialize the database, if it is not present and the server itself.
+After creating the .env file and storing a secret key in the file, it should be sufficient to run \enquote{npm install} to install the dependencies and \enquote{npm start} to initialize the database, if it is not present and the server itself, as well as create the key pair for the server. 
 \subsection{The client}
 To run the client, you require node.js of the same version as the server. It should be sufficient to run npm install followed by npm start to run the client. The client will automatically create a directory to store private keys and display the UI.
 If the database was not present during the start of the server, the user will first have to register. After logging in the user will be able to use the functionalies mentioned in section 1.
