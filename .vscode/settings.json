@@ -1,0 +1,11 @@
+{
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"driver": "SQLite",
+			"database": "${workspaceFolder:insecure-chat}/insecure-chat-server/database.db",
+			"name": "database"
+		}
+	],
+	"sqltools.useNodeRuntime": true
+}
